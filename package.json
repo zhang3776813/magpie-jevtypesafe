@@ -1,13 +1,14 @@
 {
   "name": "jevtypesafe-auth",
-  "version": "0.2.0",
-  "description": "Magpie/OpenCode provider plugin: the hosted JEV decide API as a native classifier (choice, score, noul)",
+  "version": "0.2.1",
+  "description": "把 jevtypesafe.org 托管的 JEV 决策接口接成 Magpie 原生分类器，支持 choice、score、noul",
   "type": "module",
   "main": "./index.mjs",
   "files": [
     "index.mjs",
     "README.md",
     "README.zh-CN.md",
+    "README.en.md",
     "icon.svg",
     "icon.png"
   ],
