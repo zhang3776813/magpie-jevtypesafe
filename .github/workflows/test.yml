@@ -21,6 +21,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
+      - name: README.zh-CN.md 与 README.md 保持一致
+        run: diff README.md README.zh-CN.md
       - run: npm run check
       - run: npm test
       - run: npm run test:coverage

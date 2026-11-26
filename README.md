@@ -1,77 +1,75 @@
-# JEV hosted decisions for Magpie
+# Magpie 的 JEV 托管决策插件
 
 <img src="icon.svg" width="72" height="72" alt="JEV 托管决策">
 
-[中文说明](README.zh-CN.md)
+[English](README.en.md)
 
-A [Magpie](https://usemagpie.ai) / [OpenCode](https://opencode.ai) provider plugin that serves the hosted **JEV decide API** ([jevtypesafe.org](https://jevtypesafe.org/zh/docs/api/#decide)) as a **native classifier**.
+把 [jevtypesafe.org](https://jevtypesafe.org/zh/docs/api/#decide) 的 **JEV decide 接口**接成 [Magpie](https://usemagpie.ai) / [OpenCode](https://opencode.ai) 的**原生决策分类器**。无需修改 Magpie、无需运行代理、无需安装 npm 依赖。
 
-No patching of Magpie, no local proxy, no npm dependencies.
+**JEV 是决策模型，不是聊天或代码生成模型。** 它用于路由组的意图分类，以及 Magpie 原生的自动推理等级；组内仍需配置真正负责回答的聊天模型。
 
-**JEV is a decision model, not a chat or code-generation model.** Use it as a routing group's classifier, or for Magpie's automatic reasoning effort. The group still needs a real chat model to answer.
+## 功能
 
-## What it does
-
-| | |
+| 项目 | 值 |
 |---|---|
-| Provider id | `jevtypesafe` |
-| Model | `jevtypesafe/jev` |
-| Question types | `choice`, `score`, `noul` |
-| Upstream | `POST https://jevtypesafe.org/api/v1/decide` |
-| Sign-in | your `jv_live_…` API key, kept by Magpie |
+| 供应商 ID | `jevtypesafe` |
+| 模型 | `jevtypesafe/jev` |
+| 支持问题类型 | `choice`、`score`、`noul` |
+| 上游地址 | `POST https://jevtypesafe.org/api/v1/decide` |
+| 登录方式 | 你的 `jv_live_…` API 密钥，由 Magpie 保存 |
 
-Magpie posts each question to `POST {baseURL}/systemone` through the plugin's loader `fetch`; the plugin rewrites that to the JEV `decide` endpoint, adds the bearer key, and returns the upstream `Response` unchanged — status, body and retry headers included.
+Magpie 会把每个问题发到 `POST {baseURL}/systemone`，经插件的 loader `fetch` 转换为 JEV 的 `decide` 请求，加上 Bearer 密钥，并把上游 `Response` 原样返回——状态码、响应体和重试头都保持不变。
 
-Not in this version: image assets, `box` questions, batch decide, the confidence `gate`, balance lookup, or any chat-protocol emulation. There are no invented prices, free-tier flags or live balance numbers.
+首版不包含：图片 assets、`box` 问题、批量决定、confidence `gate`、余额查询，也不模拟聊天协议。没有编造的价格、免费标记或实时余额。
 
-## Install
+## 安装
 
-**One click:** [Install in Magpie](magpie://plugin?name=jevtypesafe-auth) opens the plugin's sheet in Magpie — read it, then press Install.
+**一键安装：** [在 Magpie 中安装](magpie://plugin?name=jevtypesafe-auth) 会打开 Magpie 的插件详情页，看过内容后按「安装」。
 
-### From npm (recommended)
+### 从 npm 安装（推荐）
 
 ```powershell
 magpie plugin add jevtypesafe-auth
 magpie plugin login jevtypesafe
 ```
 
-### From a folder
+### 从本地目录安装
 
-1. Clone this repository and keep the folder where it is — a folder plugin is loaded in place and never copied, so do not move, rename or delete it afterwards.
-2. In Magpie, open **Plugins → Add a plugin** and pick that folder (not a ZIP, not a test script).
-3. Find the provider **JEV 托管决策** and sign in with your `jv_live_…` key from your jevtypesafe.org account page.
-4. Edit your routing group: pick `jevtypesafe/jev` as the intent classifier, keep the group's existing answering models, then set your intent rules.
-5. For automatic reasoning effort, use the group's own setting. The chat model in the group still writes the answer.
+1. 克隆本仓库后**保留整个目录原地不动**——文件夹插件是就地加载的，不会复制；之后不要删除、改名或移动它。
+2. 在 Magpie 打开 **插件 → 添加插件**，选择这个目录（不要选 ZIP、测试脚本）。
+3. 找到供应商 **JEV 托管决策**，用你在 jevtypesafe.org 账户页创建的 `jv_live_…` 密钥登录。
+4. 编辑路由组：意图分类器选 `jevtypesafe/jev`，保留组内原有的回答模型，再设置意图规则。
+5. 需要自动推理等级时，使用路由组内的相应设置；回答仍由组内聊天模型产生。
 
-> **Searching for it inside Magpie may not find it yet.** Magpie's search asks npm for `<query> opencode` and reads 30 results, ranked by weekly downloads, so a brand-new package sits far below the cut. Until it has downloads — or is listed in [magpie-community's registry](https://github.com/magpie-community/plugins) — use the one-click link, the npm name, or this folder.
+> **在 Magpie 里搜不到是正常的。** Magpie 的搜索会向 npm 发 `<关键词> opencode`，只读 30 条结果，按周下载量排序，新包排不进这个范围。在它有下载量、或被收进 [magpie-community 的列表](https://github.com/magpie-community/plugins) 之前，请用上面的一键链接、npm 包名或本地目录安装。
 >
-> **A card in Magpie's search results has no icon, and that is Magpie's behaviour, not this package's.** Magpie builds those cards from npm's search answer, which carries no `magpie.icon`; it only reads `magpie.icon` from the package's own metadata, for plugins that are listed in the registry or already installed. The icon does show once the plugin is installed, and on its card in **Discover** after the registry listing lands.
+> **搜索结果里的卡片没有图标，这是 Magpie 的行为，不是本插件的问题。** Magpie 用 npm 搜索接口的返回构造这些卡片，而那个接口不携带 `magpie.icon`；只有插件被列表收录或已经安装时，Magpie 才会去读包自己的 `magpie.icon`。装上之后图标就会显示；等列表收录后，**发现**页的卡片上也会显示。
 
 ```powershell
-magpie plugin add .\magpie-jevtypesafe     # the folder you cloned into
+magpie plugin add .\magpie-jevtypesafe     # 你克隆下来的那个目录
 magpie plugin login jevtypesafe
-magpie plugin                       # jevtypesafe (JEV 托管决策, 1 model) signed in
-magpie provider test jevtypesafe    # one real decide request; it is billed
+magpie plugin                       # jevtypesafe（JEV 托管决策，1 个模型）已登录
+magpie provider test jevtypesafe    # 发一次真实决策请求，会计费
 ```
 
-`provider test` sends a real upstream request and spends credits. The key goes into the sign-in prompt, never into a command argument, source file or version control.
+`provider test` 会真实调用上游并消耗额度。密钥在登录提示里输入，不要放进命令参数、源码或版本管理。
 
-Editing the source of a folder plugin: toggle the plugin off and on in Magpie's plugin page to reload it.
+修改本地目录插件的源码后，在插件页把它关闭再开启即可让宿主重新加载。
 
-## Behaviour
+## 行为说明
 
-- Only `POST /systemone` for this provider is accepted. Anything else — other hosts, query strings, other paths, `GET` — is refused locally with `400`/`404`/`405` and never reaches the network.
-- The upstream model is pinned to `jev` (1× billing). The plugin will not silently switch to a model with a different credit multiplier.
-- `state` may be a string, object or array. It is checked against the 8,000-character limit using the JavaScript string length of the compact `JSON.stringify(state)`. Over the limit the plugin returns an explicit error and does **not** truncate your context. This count is stricter than Unicode code points when supplementary-plane characters are present.
-- Only `model`, `state` and `questions` are sent upstream. Instructions and criteria inside each question are passed through untouched; finer validation is the server's job.
-- Upstream `401`, `402`, `429` and `5xx` responses, their bodies and their retry headers are handed back to Magpie as they came. The plugin never retries on its own, so a failure cannot quietly spend credits twice. Host-side failover still works as you configured it.
-- Cancellation propagates upstream. Cookies, other providers' keys and Magpie's internal request headers are never forwarded, and redirects are refused so the key cannot follow one.
-- No timers, no balance polling: refreshing the plugin card never spends JEV credits.
-- No `auth.usage` hook is declared, because the API documents no balance endpoint. The plugin shows no quota rather than a fabricated one.
+- 只接受本供应商的 `POST /systemone`。其他主机、带查询串的地址、其他路径、`GET` 一律在本地拒绝（`400`/`404`/`405`），不会发出网络请求。
+- 上游模型固定为 `jev`（1× 扣费），不会静默切换到扣费倍率不同的模型。
+- `state` 可为字符串、对象或数组。按紧凑 `JSON.stringify(state)` 的 JavaScript 字符串长度检查 8,000 字符上限；超限返回明确错误，**不会**截断你的上下文。包含补充平面字符时，这个计数比按 Unicode 码点更严格。
+- 只向上游发送 `model`、`state`、`questions`。问题内部的 instructions 与 criteria 原样透传，更细的校验由服务端完成。
+- 上游的 `401`、`402`、`429`、`5xx`，连同响应体和重试头，都原样交回 Magpie。插件自身不重试，所以一次失败不会悄悄扣两次额度；宿主的故障转移仍按你的设置运行。
+- 取消请求会传递到上游。不转发 Cookie、其他供应商的密钥或 Magpie 内部请求头；禁止跟随重定向，避免密钥被带到别处。
+- 没有定时器和余额轮询：刷新插件卡片不会消耗 JEV 额度。
+- 不声明 `auth.usage`，因为接口没有提供余额端点。插件宁可不显示额度，也不编造一个。
 
-## Development
+## 开发
 
-Node.js 22+ for the test scripts. The plugin itself runs on the Bun that Magpie ships. Zero dependencies — no `npm install` needed.
+测试脚本需要 Node.js 22 或更高版本；插件本身由 Magpie 自带的 Bun 运行。零依赖，无需 `npm install`。
 
 ```powershell
 npm run check
@@ -79,45 +77,45 @@ npm test
 npm run test:coverage
 ```
 
-### Isolated Magpie verification
+### 隔离 Magpie 验证
 
-`npm run verify:magpie` starts a real Magpie in a throwaway `HOME` with its own config, cache, data directory and a random local port. It registers the plugin, boots the gateway, posts a three-question decide request and asserts that the decision model stays out of the chat catalogue and that a chat request to it is refused. The sandbox is removed afterwards, and your real config files are compared by hash before and after without ever being read for secrets.
+`npm run verify:magpie` 会用独立的 `HOME`、配置、缓存、数据目录和随机本地端口启动一个真实的 Magpie，注册插件、拉起网关，提交一次三问题决策请求，并断言决策模型不出现在聊天目录中、向它发聊天请求会被拒绝。结束后删除沙箱；你的真实配置文件只做前后哈希比较，不会读取或输出凭据内容。
 
 ```powershell
 $env:MAGPIE_BIN = 'path\to\magpie-windows-amd64.exe'
-$env:MAGPIE_BUN = Join-Path $env:USERPROFILE '.cache\magpie\bun\<version>\magpie-bun.exe'
+$env:MAGPIE_BUN = Join-Path $env:USERPROFILE '.cache\magpie\bun\<版本>\magpie-bun.exe'
 npm run verify:magpie
 ```
 
-By default it points the plugin at a local mock upstream and uses a fake key, so nothing is billed.
+默认指向本地模拟上游并使用假密钥，不产生费用。
 
-To re-run the live check against the real service, pass the key through a temporary environment variable — it is written only into the sandbox's auth file and redacted from the report:
+需要重跑真实链路时，用临时环境变量传入密钥——它只会写入沙箱的鉴权文件，并在报告里脱敏：
 
 ```powershell
-$secret = Read-Host 'JEV API key' -AsSecureString
+$secret = Read-Host 'JEV API 密钥' -AsSecureString
 $env:JEV_API_KEY = [System.Net.NetworkCredential]::new('', $secret).Password
 try { npm run verify:magpie -- --live } finally { Remove-Item Env:JEV_API_KEY -ErrorAction SilentlyContinue }
 ```
 
-`--live` bills one three-question decision.
+`--live` 会计费一次三问题决策。
 
-## Verified
+## 已验证
 
-- 42 offline tests pass; line, branch and function coverage of the production entry point is 100%.
-- An isolated Magpie loaded the plugin, answered a three-question decision over HTTP 200, and refused a chat request to the same model.
-- A live isolated run against jevtypesafe.org returned `jev-1.14.0` with results for `choice`, `score` and `noul`.
-- The host's real `plugins.json`, `plugin-auth.json`, `providers.json` and `settings.json` were byte-identical before and after the isolated runs.
+- 42 项离线测试全部通过；生产入口的行、分支、函数覆盖率均为 100%。
+- 隔离的 Magpie 成功加载插件，三问题决策返回 HTTP 200，向同一模型发聊天请求被拒绝。
+- 一次针对 jevtypesafe.org 的真实隔离运行返回 `jev-1.14.0`，`choice`、`score`、`noul` 三类问题均有结果。
+- 隔离运行前后，宿主的真实 `plugins.json`、`plugin-auth.json`、`providers.json`、`settings.json` 字节一致。
 
-Interface evidence: the [JEV API reference](https://jevtypesafe.org/zh/docs/api/#decide), [Magpie's plugin docs](https://usemagpie.ai/docs/plugins#decide) and Magpie's own `internal/gateway/plugin_decide_test.go`.
+接口依据：[JEV API 文档](https://jevtypesafe.org/zh/docs/api/#decide)、[Magpie 插件文档](https://usemagpie.ai/docs/plugins#decide)，以及 Magpie 源码中的 `internal/gateway/plugin_decide_test.go`。
 
-## Uninstall
+## 卸载
 
-1. Switch any routing group that uses this classifier back to another one.
-2. Remove the plugin in Magpie's plugin page, or `magpie plugin rm <spec>`.
-3. Only then delete the folder.
+1. 先把使用该分类器的路由组切回其他可用分类器。
+2. 在插件页移除插件，或执行 `magpie plugin rm <spec>`。
+3. 确认移除后，才能删除插件目录。
 
-Nothing else in `providers.json` or your other providers needs to be touched.
+不需要清空 `providers.json`，也不会影响你的其他供应商配置。
 
-## License
+## 许可证
 
 MIT

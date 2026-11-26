@@ -2,7 +2,7 @@
 
 <img src="icon.svg" width="72" height="72" alt="JEV 托管决策">
 
-[English](README.md)
+[English](README.en.md)
 
 把 [jevtypesafe.org](https://jevtypesafe.org/zh/docs/api/#decide) 的 **JEV decide 接口**接成 [Magpie](https://usemagpie.ai) / [OpenCode](https://opencode.ai) 的**原生决策分类器**。无需修改 Magpie、无需运行代理、无需安装 npm 依赖。
 
