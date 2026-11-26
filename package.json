@@ -1,0 +1,43 @@
+{
+  "name": "opencode-jevtypesafe-auth",
+  "version": "0.1.0",
+  "description": "Magpie/OpenCode provider plugin: the hosted JEV decide API as a native classifier (choice, score, noul)",
+  "type": "module",
+  "main": "./index.mjs",
+  "files": ["index.mjs", "README.md", "README.zh-CN.md"],
+  "engines": { "node": ">=22" },
+  "keywords": [
+    "opencode",
+    "opencode-plugin",
+    "magpie",
+    "magpie-plugin",
+    "jev",
+    "jevtypesafe",
+    "decide",
+    "classifier",
+    "routing"
+  ],
+  "license": "MIT",
+  "author": "zhang3776813",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhang3776813/magpie-jevtypesafe.git"
+  },
+  "homepage": "https://github.com/zhang3776813/magpie-jevtypesafe#readme",
+  "bugs": { "url": "https://github.com/zhang3776813/magpie-jevtypesafe/issues" },
+  "scripts": {
+    "check": "node --check index.mjs && node --check test/plugin.test.mjs && node --check scripts/verify-magpie.mjs",
+    "test": "node --test test/plugin.test.mjs",
+    "test:coverage": "node --test --experimental-test-coverage --test-coverage-include=index.mjs --test-coverage-lines=80 --test-coverage-functions=80 --test-coverage-branches=80 test/plugin.test.mjs",
+    "verify:magpie": "node scripts/verify-magpie.mjs"
+  },
+  "magpie": {
+    "name": "JEV 托管决策",
+    "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTQiIGZpbGw9IiMxMTE4MjciLz48cGF0aCBkPSJNMjIgMjB2MTZhOCA4IDAgMCAwIDggOGgyIiBmaWxsPSJub25lIiBzdHJva2U9IiMzOGJkZjgiIHN0cm9rZS13aWR0aD0iNiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PGNpcmNsZSBjeD0iNDQiIGN5PSIyNCIgcj0iNiIgZmlsbD0iIzIyZDNlZSIvPjwvc3ZnPg==",
+    "summary": {
+      "en": "The hosted JEV decide API as a native Magpie classifier: choice, score and noul questions for routing groups and reasoning effort. Not a chat model.",
+      "zh": "把托管 JEV 的 decide 接口接成 Magpie 原生决策分类器：支持 choice、score、noul，用于路由组分类与推理等级。不是聊天模型。"
+    },
+    "maxConcurrency": 2
+  }
+}

@@ -1,0 +1,8 @@
+node_modules/
+.verification/
+交付/
+*.log
+.DS_Store
+Thumbs.db
+.env
+.env.*
