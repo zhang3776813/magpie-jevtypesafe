@@ -24,6 +24,8 @@ Magpie 会把每个问题发到 `POST {baseURL}/systemone`，经插件的 loader
 
 ## 安装
 
+**一键安装：** [在 Magpie 中安装](magpie://plugin?name=opencode-jevtypesafe-auth) 会打开 Magpie 的插件详情页，看过内容后按「安装」。
+
 ### 从 npm 安装（推荐）
 
 ```powershell
@@ -38,6 +40,8 @@ magpie plugin login jevtypesafe
 3. 找到供应商 **JEV 托管决策**，用你在 jevtypesafe.org 账户页创建的 `jv_live_…` 密钥登录。
 4. 编辑路由组：意图分类器选 `jevtypesafe/jev`，保留组内原有的回答模型，再设置意图规则。
 5. 需要自动推理等级时，使用路由组内的相应设置；回答仍由组内聊天模型产生。
+
+> **在 Magpie 里搜不到是正常的。** Magpie 的搜索会向 npm 发 `<关键词> opencode`，而 npm 按周下载量排序，新包排不进 Magpie 读取的前 250 条。在它有下载量、或被收进 [magpie-community 的列表](https://github.com/magpie-community/plugins) 之前，请用上面的一键链接、npm 包名或本地目录安装。直接在 npm 搜索框输完整包名也一样搜不到，原因相同。
 
 ```powershell
 magpie plugin add .\magpie-jevtypesafe     # 你克隆下来的那个目录
