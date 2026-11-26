@@ -26,6 +26,8 @@ Not in this version: image assets, `box` questions, batch decide, the confidence
 
 ## Install
 
+**One click:** [Install in Magpie](magpie://plugin?name=opencode-jevtypesafe-auth) opens the plugin's sheet in Magpie — read it, then press Install.
+
 ### From npm (recommended)
 
 ```powershell
@@ -40,6 +42,8 @@ magpie plugin login jevtypesafe
 3. Find the provider **JEV 托管决策** and sign in with your `jv_live_…` key from your jevtypesafe.org account page.
 4. Edit your routing group: pick `jevtypesafe/jev` as the intent classifier, keep the group's existing answering models, then set your intent rules.
 5. For automatic reasoning effort, use the group's own setting. The chat model in the group still writes the answer.
+
+> **Searching for it inside Magpie may not find it yet.** Magpie's search asks npm for `<query> opencode`, and npm ranks that by weekly downloads, so a brand-new package sits below the 250 results Magpie reads. Until it has downloads — or is listed in [magpie-community's registry](https://github.com/magpie-community/plugins) — use the one-click link, the npm name, or this folder. Typing the exact package name in npm's own search has the same problem, for the same reason.
 
 ```powershell
 magpie plugin add .\magpie-jevtypesafe     # the folder you cloned into

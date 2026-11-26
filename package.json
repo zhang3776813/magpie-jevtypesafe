@@ -1,11 +1,19 @@
 {
   "name": "opencode-jevtypesafe-auth",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Magpie/OpenCode provider plugin: the hosted JEV decide API as a native classifier (choice, score, noul)",
   "type": "module",
   "main": "./index.mjs",
-  "files": ["index.mjs", "README.md", "README.zh-CN.md", "icon.svg", "icon.png"],
-  "engines": { "node": ">=22" },
+  "files": [
+    "index.mjs",
+    "README.md",
+    "README.zh-CN.md",
+    "icon.svg",
+    "icon.png"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
   "keywords": [
     "opencode",
     "opencode-plugin",
@@ -24,7 +32,9 @@
     "url": "git+https://github.com/zhang3776813/magpie-jevtypesafe.git"
   },
   "homepage": "https://github.com/zhang3776813/magpie-jevtypesafe#readme",
-  "bugs": { "url": "https://github.com/zhang3776813/magpie-jevtypesafe/issues" },
+  "bugs": {
+    "url": "https://github.com/zhang3776813/magpie-jevtypesafe/issues"
+  },
   "scripts": {
     "check": "node --check index.mjs && node --check test/plugin.test.mjs && node --check scripts/verify-magpie.mjs",
     "test": "node --test test/plugin.test.mjs",
