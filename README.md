@@ -1,5 +1,7 @@
 # JEV hosted decisions for Magpie
 
+<img src="icon.svg" width="72" height="72" alt="JEV 托管决策">
+
 [中文说明](README.zh-CN.md)
 
 A [Magpie](https://usemagpie.ai) / [OpenCode](https://opencode.ai) provider plugin that serves the hosted **JEV decide API** ([jevtypesafe.org](https://jevtypesafe.org/zh/docs/api/#decide)) as a **native classifier**.
