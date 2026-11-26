@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="JEV 托管决策">
+  <title>JEV 托管决策</title>
+  <defs>
+    <linearGradient id="jev-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0B1220"/>
+      <stop offset="1" stop-color="#1B3550"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="15" fill="url(#jev-bg)"/>
+  <!-- 一条输入分成两条路径，右支被选中：决策就是分叉 -->
+  <path d="M32 56V38" stroke="#38BDF8" stroke-width="9.5" stroke-linecap="round"/>
+  <path d="M32 38 L14 18" stroke="#55708F" stroke-width="8.5" stroke-linecap="round"/>
+  <path d="M32 38 L50 18" stroke="#22D3EE" stroke-width="8.5" stroke-linecap="round"/>
+  <circle cx="50" cy="18" r="8.5" fill="#7DEEFB"/>
+</svg>
