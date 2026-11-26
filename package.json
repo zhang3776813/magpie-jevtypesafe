@@ -1,6 +1,6 @@
 {
-  "name": "opencode-jevtypesafe-auth",
-  "version": "0.1.2",
+  "name": "jevtypesafe-auth",
+  "version": "0.2.0",
   "description": "Magpie/OpenCode provider plugin: the hosted JEV decide API as a native classifier (choice, score, noul)",
   "type": "module",
   "main": "./index.mjs",

@@ -24,12 +24,12 @@ Magpie 会把每个问题发到 `POST {baseURL}/systemone`，经插件的 loader
 
 ## 安装
 
-**一键安装：** [在 Magpie 中安装](magpie://plugin?name=opencode-jevtypesafe-auth) 会打开 Magpie 的插件详情页，看过内容后按「安装」。
+**一键安装：** [在 Magpie 中安装](magpie://plugin?name=jevtypesafe-auth) 会打开 Magpie 的插件详情页，看过内容后按「安装」。
 
 ### 从 npm 安装（推荐）
 
 ```powershell
-magpie plugin add opencode-jevtypesafe-auth
+magpie plugin add jevtypesafe-auth
 magpie plugin login jevtypesafe
 ```
 
@@ -41,7 +41,9 @@ magpie plugin login jevtypesafe
 4. 编辑路由组：意图分类器选 `jevtypesafe/jev`，保留组内原有的回答模型，再设置意图规则。
 5. 需要自动推理等级时，使用路由组内的相应设置；回答仍由组内聊天模型产生。
 
-> **在 Magpie 里搜不到是正常的。** Magpie 的搜索会向 npm 发 `<关键词> opencode`，而 npm 按周下载量排序，新包排不进 Magpie 读取的前 250 条。在它有下载量、或被收进 [magpie-community 的列表](https://github.com/magpie-community/plugins) 之前，请用上面的一键链接、npm 包名或本地目录安装。直接在 npm 搜索框输完整包名也一样搜不到，原因相同。
+> **在 Magpie 里搜不到是正常的。** Magpie 的搜索会向 npm 发 `<关键词> opencode`，只读 30 条结果，按周下载量排序，新包排不进这个范围。在它有下载量、或被收进 [magpie-community 的列表](https://github.com/magpie-community/plugins) 之前，请用上面的一键链接、npm 包名或本地目录安装。
+>
+> **搜索结果里的卡片没有图标，这是 Magpie 的行为，不是本插件的问题。** Magpie 用 npm 搜索接口的返回构造这些卡片，而那个接口不携带 `magpie.icon`；只有插件被列表收录或已经安装时，Magpie 才会去读包自己的 `magpie.icon`。装上之后图标就会显示；等列表收录后，**发现**页的卡片上也会显示。
 
 ```powershell
 magpie plugin add .\magpie-jevtypesafe     # 你克隆下来的那个目录
